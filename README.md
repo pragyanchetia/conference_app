@@ -11,10 +11,10 @@ Confo is a small video-conferencing hobby project built with Next.js, NextAuth, 
    npm install
    ```
 
-3. Copy `.env.example` to `.env` and fill in the values:
+3. Create `.env` with the following fields:
    - `DATABASE_URL`: your MySQL connection string.
-   - `AUTH_SECRET`: a long random secret. You can generate one with `openssl rand -base64 32`. `AUTH_TRUST_HOST=true` is included for deployments behind a trusted host/proxy; keep the deployment host configuration under your control.
-   - `NEXT_PUBLIC_STREAM_API_KEY` and `STREAM_SECRET_KEY`: Stream Video credentials. Keep the secret key server-side; never prefix it with `NEXT_PUBLIC_`.
+   - `AUTH_SECRET`: a long random secret.
+   - `NEXT_PUBLIC_STREAM_API_KEY` and `STREAM_SECRET_KEY`: Stream Video credentials. Keep the secret key server-side; 
    - `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` are optional. Google login is hidden until both are set.
 
 4. Generate Prisma Client:
