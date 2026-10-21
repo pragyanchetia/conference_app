@@ -1,0 +1,36 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       String  @id @default(cuid())
+  userId   String? @unique
+  name     String?
+  username String? @unique
+  email    String? @unique
+  password String?
+  image    String?
+
+  room    Room[] 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Room {
+  id         String  @id @default(uuid())
+  name       String? @unique 
+  admin String?
+  description   String? @db.Text
+  inviteCode String? @unique
+  
+
+  user User[] 
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}  
