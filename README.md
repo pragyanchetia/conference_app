@@ -57,6 +57,3 @@ npm run lint
 npx prisma generate
 ```
 
-## Notes
-
-Stream Video is an external service, so meeting creation, joining, and recording retrieval need valid Stream credentials to be tested end-to-end. Recordings only appear when Stream has recordings available for the account/calls. Per-room call history now relies on the `roomId` custom field, so older Stream calls created before this fix may not appear or open through a room link. Do not commit `.env` or real credentials.
