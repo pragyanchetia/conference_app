@@ -14,7 +14,7 @@ export const MyUILayout = () => {
 
     return (
         <div>
-            Call &quot;{call?.id}&quot; has {participantCount} participants
+            <p>Click &quot;Join&quot; to enter the meeting.</p>
         </div>
     )
 };
