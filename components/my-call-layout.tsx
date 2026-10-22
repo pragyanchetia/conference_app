@@ -14,7 +14,7 @@ export const MyUILayout = () => {
 
     return (
         <div>
-            Call "{call?.id}" has {participantCount} participants
+            Call &quot;{call?.id}&quot; has {participantCount} participants
         </div>
     )
 };

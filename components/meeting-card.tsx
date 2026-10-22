@@ -21,17 +21,17 @@ const MeetingCard = ({
   const { toast } = useToast();
 
   return (
-    <section className="flex min-h-[258px] w-full flex-col justify-between rounded-[14px] bg-dark-1 px-5 py-8 xl:max-w-[568px]">
+    <section className="flex min-h-[230px] min-w-0 w-full flex-col justify-between gap-7 rounded-2xl border border-white/5 bg-dark-1 p-5 shadow-sm sm:p-6 lg:p-7 xl:max-w-[568px]">
       <article className="flex flex-col gap-5">
         <Image src={icon} alt="upcoming" width={28} height={28} />
-        <div className="flex justify-between">
-          <div className="flex flex-col gap-2">
-            <h1 className="text-2xl font-bold">{title}</h1>
-            <p className="text-base font-normal">{date}</p>
+        <div className="flex min-w-0 justify-between">
+          <div className="flex min-w-0 flex-col gap-2">
+            <h2 className="break-words text-lg font-bold leading-snug sm:text-xl lg:text-2xl" style={{ overflowWrap: "anywhere" }}>{title}</h2>
+            <p className="break-words text-sm leading-relaxed text-slate-300 sm:text-base" style={{ overflowWrap: "anywhere" }}>{date}</p>
           </div>
         </div>
       </article>
-      <article className={cn("flex justify-center relative", {})}>
+      <article className={cn("relative flex flex-wrap items-center justify-between gap-4", {})}>
         <div className="relative flex w-full max-sm:hidden">
           {avatarImages.map((img, index) => (
             <Image
@@ -49,8 +49,8 @@ const MeetingCard = ({
           </div>
         </div>
         {!isPreviousMeeting && (
-          <div className="flex gap-2">
-            <Button onClick={handleClick} className="rounded bg-blue-1 px-6">
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row">
+            <Button onClick={handleClick} className="min-h-11 w-full rounded-lg bg-blue-1 px-4 sm:w-auto sm:px-5">
               {buttonIcon1 && (
                 <Image src={buttonIcon1} alt="feature" width={20} height={20} />
               )}
@@ -63,7 +63,7 @@ const MeetingCard = ({
                   title: "Link Copied",
                 });
               }}
-              className="bg-dark-4 px-6"
+              className="min-h-11 w-full bg-dark-4 px-4 sm:w-auto sm:px-5"
             >
               <Image
                 src="/icons/copy.svg"

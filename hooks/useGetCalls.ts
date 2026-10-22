@@ -5,7 +5,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import useUser from "./useUser";
 
-export const useGetCalls = () => {
+type CallListType = 'ended' | 'upcoming' | 'recordings';
+
+export const useGetCalls = (type: CallListType) => {
   const [calls, setCalls] = useState<Call[]>([]);
   const [callRecordings, setCallRecordings] = useState<CallRecording[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,15 +42,19 @@ export const useGetCalls = () => {
         });
         setCalls(roomCalls);
 
-        const recordingResults = await Promise.all(roomCalls.map(async (call) => {
-          try {
-            const response = await call.queryRecordings();
-            return response.recordings || [];
-          } catch {
-            return [];
-          }
-        }));
-        if (!cancelled) setCallRecordings(recordingResults.flat());
+        if (type === 'recordings') {
+          const recordingResults = await Promise.all(roomCalls.map(async (call) => {
+            try {
+              const response = await call.queryRecordings();
+              return response.recordings || [];
+            } catch {
+              return [];
+            }
+          }));
+          if (!cancelled) setCallRecordings(recordingResults.flat());
+        } else if (!cancelled) {
+          setCallRecordings([]);
+        }
       } catch (error) {
         console.error("Could not load calls:", error);
         if (!cancelled) {
@@ -62,7 +68,7 @@ export const useGetCalls = () => {
 
     loadCalls();
     return () => { cancelled = true; };
-  }, [client, user?.id, roomId]);
+  }, [client, user?.id, roomId, type]);
 
   const now = Date.now();
   const getStartTime = (call: Call) => {
