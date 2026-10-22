@@ -2,6 +2,8 @@
 
 Confo is a small video-conferencing hobby project built with Next.js, NextAuth, Prisma, MySQL and Stream Video. Users can create rooms, invite members, manage room membership, and start or schedule meetings.
 
+**🚧🚧Responsiveness of the site is yet to be fixed🚧🚧**
+
 ## Run locally
 
 1. Install Node.js (use a current LTS release) and MySQL.
