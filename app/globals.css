@@ -110,3 +110,168 @@
     width: 100%;
   }
 }
+
+/* Responsive and accessibility foundations */
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+video {
+  max-width: 100%;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+button {
+  touch-action: manipulation;
+}
+
+:focus-visible {
+  outline: 2px solid #7dd3fc;
+  outline-offset: 3px;
+}
+
+@media (max-width: 639px) {
+  .str-video__speaker-layout__wrapper {
+    max-height: none;
+  }
+
+  .str-video__participant-list {
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+
+  .str-video__call-controls__button {
+    min-height: 44px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* Responsive meeting workspace */
+.meeting-shell {
+  min-height: 100dvh;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top, rgba(56, 189, 248, 0.07), transparent 48%),
+    #161925;
+}
+
+.meeting-workspace {
+  min-height: 0;
+}
+
+.meeting-video-surface,
+.meeting-video-surface > div {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.meeting-video-surface .str-video__speaker-layout,
+.meeting-video-surface .str-video__paginated-grid-layout,
+.meeting-video-surface .str-video__speaker-layout__wrapper,
+.meeting-video-surface .str-video__paginated-grid-layout__wrapper {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.meeting-video-surface video {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.meeting-controls-wrap .str-video__call-controls {
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+@media (max-width: 639px) {
+  .meeting-shell {
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  .meeting-header {
+    gap: 0.65rem;
+    padding-top: 0.75rem;
+  }
+
+  .meeting-header h1 {
+    font-size: 1.05rem;
+  }
+
+  .meeting-workspace {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .meeting-video-surface {
+    border-radius: 0.9rem;
+    padding: 0.25rem;
+  }
+
+  .meeting-controls-wrap {
+    gap: 0.35rem;
+  }
+
+  .meeting-controls-wrap .str-video__call-controls__button {
+    min-width: 2.5rem;
+    min-height: 2.75rem;
+  }
+
+  .str-video__speaker-layout__wrapper {
+    max-height: none;
+  }
+
+  .str-video__participant-list {
+    max-height: 40vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-height: 540px) and (orientation: landscape) {
+  .meeting-header {
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .meeting-header p:last-child {
+    display: none;
+  }
+
+  .meeting-controls-wrap {
+    padding-top: 0.35rem;
+    padding-bottom: max(0.35rem, env(safe-area-inset-bottom));
+  }
+}

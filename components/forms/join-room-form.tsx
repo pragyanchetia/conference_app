@@ -54,9 +54,9 @@ const JoinRoomForm = () => {
     };
 
   return (
-    <div className="grid grid-cols-[2fr_1fr] h-full bg-dark-3 rounded-xl">
+    <div className="h-full w-full min-w-0 rounded-2xl border border-white/5 bg-dark-3 shadow-lg">
         <Form {...form}>
-           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-4 py-4">
+           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 p-4 sm:p-5">
                 <div> 
                     <FormField
                         control= {form.control}
@@ -69,7 +69,7 @@ const JoinRoomForm = () => {
                                 <FormControl>
                                     <Input 
                                         disabled={isLoading}
-                                        className="bg-zinc-500/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0 w-fit"
+                                        className="h-11 w-full min-w-0 border border-white/10 bg-[#34394a] text-white placeholder:text-slate-400 focus-visible:ring-2 focus-visible:ring-sky-400 focus-visible:ring-offset-0"
                                         placeholder="Enter server name"
                                         {...field}
                                     />
@@ -80,7 +80,7 @@ const JoinRoomForm = () => {
                 </div> 
 
                 <div>
-                    <Button className="bg-dark-1 text-white hover:bg-dark-4" disabled={isLoading}>
+                    <Button className="min-h-11 w-full bg-sky-400 font-semibold text-slate-950 hover:bg-sky-300 sm:w-auto" disabled={isLoading}>
                         Join
                     </Button>
                 </div>

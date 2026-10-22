@@ -1,7 +1,7 @@
- 
 import { signIn } from "@/auth"
 import LoginForm from "@/components/forms/login-form"
 import { Button } from "@/components/ui/button"
+
 import {
     Card,
     CardContent,
@@ -11,7 +11,8 @@ import {
     CardTitle,
   } from "@/components/ui/card" 
   
-import Link from "next/link"
+import Link from "next/link";
+import { Suspense } from "react";
 
 const Page = () => {
  
@@ -23,7 +24,15 @@ const Page = () => {
                 <CardDescription>Enter Your Credentials</CardDescription>
             </CardHeader>
             <CardContent className="text-dark-3">
-                <LoginForm />
+                <Suspense
+                    fallback={
+                        <div className="flex min-h-24 items-center justify-center text-sm text-slate-400">
+                            Loading login form...
+                        </div>
+                    }
+                >
+                    <LoginForm />
+                </Suspense>
             </CardContent>
             <CardFooter className="flex flex-col space-y-3">
                 {process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && <span>Or</span>}
@@ -37,7 +46,7 @@ const Page = () => {
                 )}
 
                 <Link href={"/signup"} className="pt-4 hover:text-gray-300">
-                    Don't have an account? Sign up
+                    Don&apos;t have an account? Sign up
                 </Link>
             </CardFooter>
         </Card> 

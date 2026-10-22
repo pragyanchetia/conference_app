@@ -7,7 +7,7 @@ import MeetingCard from './meeting-card';
 import { LoaderCircle } from 'lucide-react';
 
 const CallList = ({ type }: { type: 'ended' | 'upcoming' | 'recordings' }) => {
-  const { endedCalls, upcomingCalls, callRecordings, isLoading } = useGetCalls();
+  const { endedCalls, upcomingCalls, callRecordings, isLoading } = useGetCalls(type);
   const router = useRouter();
   const params = useParams();
   const roomId = Array.isArray(params.id) ? params.id[0] : String(params.id ?? '');

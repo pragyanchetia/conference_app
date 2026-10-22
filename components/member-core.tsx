@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import { ShieldCheck, UserCog, UserMinus } from 'lucide-react';
@@ -19,20 +19,32 @@ const MemberCore = () => {
   const [adminId, setAdminId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const loadMembers = async () => {
-    if (!roomId) return;
+  const loadMembers = useCallback(async () => {
+    if (!roomId) {
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await axios.get('/api/member', { params: { id: roomId } });
+      const response = await axios.get('/api/member', {
+        params: { id: roomId },
+      });
+
       setMembers(response.data.members);
       setAdminId(response.data.adminId);
     } catch (error: any) {
-      toast({ description: error?.response?.data?.message || 'Could not load room members.' });
+      toast({
+        description:
+          error?.response?.data?.message || 'Could not load room members.',
+      });
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [roomId]);
 
-  useEffect(() => { void loadMembers(); }, [roomId]);
+  useEffect(() => {
+    void loadMembers();
+  }, [loadMembers]);
 
   const handleRemove = async (userId: string) => {
     try {
