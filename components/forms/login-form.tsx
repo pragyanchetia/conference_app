@@ -32,7 +32,7 @@ const LoginForm = () => {
       }
       toast({ description: "Login successful." });
       const callbackUrl = searchParams.get("callbackUrl");
-      const destination = callbackUrl?.startsWith("/") && !callbackUrl.startsWith("//") ? callbackUrl : "/user";
+      const destination = callbackUrl?.startsWith("/") && !callbackUrl.startsWith("//") ? callbackUrl : "/home";
       router.replace(destination);
       router.refresh();
     } catch {
