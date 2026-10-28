@@ -7,7 +7,7 @@ export default auth((request) => {
   const isAuthPage = pathname === "/login" || pathname === "/signup";
 
   if (isLoggedIn && isAuthPage) {
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/home", request.url));
   }
 
   if (!isLoggedIn && !isAuthPage) {

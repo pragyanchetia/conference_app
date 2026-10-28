@@ -42,9 +42,9 @@ const SignUpForm = ({ showGoogle = false }: { showGoogle?: boolean }) => {
         </CardHeader>
         <CardContent>
           <form onSubmit={signUpHandler} className="flex flex-col space-y-3">
-            <Input type="text" placeholder="Your name" name="username" autoComplete="name" required maxLength={60} disabled={isLoading} />
-            <Input type="email" placeholder="Email" name="email" autoComplete="email" required disabled={isLoading} />
-            <Input type="password" placeholder="Password (at least 8 characters)" name="password" autoComplete="new-password" minLength={8} maxLength={72} required disabled={isLoading} />
+            <Input type="text" placeholder="Your name" name="username" autoComplete="name" required maxLength={60} disabled={isLoading} className="text-slate-950"/>
+            <Input type="email" placeholder="Email" name="email" autoComplete="email" required disabled={isLoading} className="text-slate-950" />
+            <Input type="password" placeholder="Password (at least 8 characters)" name="password" autoComplete="new-password" minLength={8} maxLength={72} required disabled={isLoading} className="text-slate-950" />
             <Button type="submit" disabled={isLoading} className="bg-sky-400 text-slate-950 hover:bg-sky-500">
               {isLoading ? "Creating account..." : "Register"}
             </Button>
@@ -53,7 +53,7 @@ const SignUpForm = ({ showGoogle = false }: { showGoogle?: boolean }) => {
         <CardFooter className="flex flex-col gap-3">
           {showGoogle && <span className="text-sm text-slate-400">Or</span>}
           {showGoogle && (
-            <Button type="button" variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/" })}>
+            <Button type="button" variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/home" })}>
               Continue with Google
             </Button>
           )}
