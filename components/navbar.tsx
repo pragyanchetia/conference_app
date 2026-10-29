@@ -4,12 +4,17 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
-import { Menu, X } from 'lucide-react';
-import useUser from '@/hooks/useUser';
+import { Menu, X } from 'lucide-react'; 
 import { Button } from './ui/button';
 
-const Navbar = () => {
-  const { user } = useUser();
+type NavbarUser = {
+  id: string;
+  name?: string | null;
+  username?: string | null;
+  image?: string | null;
+};
+
+const Navbar = ({ user }: { user: NavbarUser | null }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const closeMenu = () => setIsMenuOpen(false);
