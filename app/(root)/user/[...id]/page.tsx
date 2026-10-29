@@ -6,20 +6,21 @@ import MyRooms from "@/components/my-rooms";
 
 
 const UserHome = () => { 
-   
+    
   return (
-    <div className="relative">  
-        <div className='grid grid-cols-[1fr_2fr] text-white'>
-          <div className='grid xl:grid-rows-[1fr_.5fr] gap-3 mx-10'> 
-              <CreateRoomForm />  
-              <JoinRoomForm /> 
-          </div> 
-          <div className="flex-center">
-            <MyRooms />
-          </div>
-        </div>   
+    <div className="relative mx-auto w-full max-w-7xl">
+      <div className="grid min-w-0 grid-cols-1 items-start gap-5 text-white lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] xl:gap-6">
+        <div className="grid min-w-0 content-start gap-4">
+          <CreateRoomForm />
+          <JoinRoomForm />
+        </div>
+
+        <div className="min-w-0">
+          <MyRooms />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
 
 export default UserHome

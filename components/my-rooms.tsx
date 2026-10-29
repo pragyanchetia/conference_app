@@ -20,14 +20,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-
-import { roomType, userType } from "@/components/data-for-lists/data-list"
 import Loader from './Loader'
-import { Button } from './ui/button';
-import { currentProfile } from '@/lib/current-profile'; 
+import { Button } from './ui/button'; 
 import useUser from '@/hooks/useUser';
 import { Pencil, Search, Settings, Trash2 } from 'lucide-react';
-import { currentRoom } from '@/lib/current-room';
+import { roomType } from "@/components/data-for-lists/data-list";
+
 import UpdateRoomForm from './forms/update-room-form';
 
 const MyRooms = () => { 
@@ -39,52 +37,52 @@ const MyRooms = () => {
   const router = useRouter();
   
 
+
   useEffect(() => {
+    let cancelled = false;
+
     const handleGetRoom = async () => {
       try {
-        await axios.get('/api/room')
-                    .then((res) => 
-                      {
-                        setGetRoom(res.data)
-                        setLoading(false)
-                    }
-                  ); 
+        const response = await axios.get<roomType[]>("/api/room");
+
+        if (!cancelled) {
+          setGetRoom(response.data);
+        }
       } catch (error) {
         console.error("Could not load rooms:", error);
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-    }
+    };
 
-    handleGetRoom();
-    
+    void handleGetRoom();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
-  const handleDelete = async(id: string) => {
-    try {
-      const roomId: string= id as string; 
-      const room = await currentRoom(roomId);
-      if (!room || user?.id !== room.admin) return;
-      
-      await axios.delete("/api/room", {data: {id}}); 
-      window.location.reload();
 
+
+  const handleDelete = async (id: string) => {
+    try {
+      await axios.delete("/api/room", { data: { id } });
+
+      // Update the list immediately instead of reloading the whole page.
+      setGetRoom((rooms) => rooms.filter((room) => room.id !== id));
     } catch (error) {
-      console.log(error);
+      console.error("Could not delete room:", error);
     }
   };
- 
-  const handleRouteToRoom = async (roomId: string) => {
-    try {
-      const profile = await currentProfile();
-      if (profile) router.push(`/room/${roomId}`);
-    } catch (error) {
-      console.error("Could not open room:", error);
-    }
-  }
+  
+  const handleRouteToRoom = (roomId: string) => {
+    router.push(`/room/${roomId}`);
+  };
 
   return (
-    <div className="min-w-0 rounded-2xl border border-white/5 bg-dark-3 p-1 shadow-lg">
+    <div className="flex h-[420px] min-w-0 flex-col rounded-2xl border border-white/5 bg-dark-3 p-1 shadow-lg sm:h-[460px]">
       <div className="m-2 flex items-center justify-between gap-3 rounded-xl bg-dark-2 px-4 py-3 sm:m-3 sm:px-5">
         <div className="min-w-0">
           <h1 className="text-sm font-bold uppercase tracking-wide sm:text-base">My rooms</h1>
@@ -93,8 +91,8 @@ const MyRooms = () => {
         <Search className="shrink-0 text-slate-400" aria-hidden="true" />
       </div>
 
-      <div className="mx-2 mb-2 flex max-h-[55vh] min-h-40 flex-col gap-2 overflow-auto rounded-xl bg-dark-2 p-2 sm:mx-3 sm:mb-3 sm:max-h-[60vh] sm:p-3">
-        { isLoading ? <Loader /> :
+      <div className="mx-2 mb-2 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto rounded-xl bg-dark-2 p-2 sm:mx-3 sm:mb-3 sm:p-3">
+        {isLoading ? <Loader className="h-full min-h-[240px]" /> :
           (getRoom.length !== 0) ?
           getRoom.map((getRoom: roomType) => (
             <div key={getRoom.id} className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-1 sm:gap-2">
