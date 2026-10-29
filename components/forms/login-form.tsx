@@ -1,15 +1,12 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { signIn } from "next-auth/react"; 
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 
 const LoginForm = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -31,10 +28,8 @@ const LoginForm = () => {
         return;
       }
       toast({ description: "Login successful." });
-      const callbackUrl = searchParams.get("callbackUrl");
-      const destination = callbackUrl?.startsWith("/") && !callbackUrl.startsWith("//") ? callbackUrl : "/home";
-      router.replace(destination);
-      router.refresh();
+      window.location.replace("/");
+
     } catch {
       toast({ description: "Could not log in. Please try again." });
     } finally {

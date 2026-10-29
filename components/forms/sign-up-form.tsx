@@ -53,7 +53,7 @@ const SignUpForm = ({ showGoogle = false }: { showGoogle?: boolean }) => {
         <CardFooter className="flex flex-col gap-3">
           {showGoogle && <span className="text-sm text-slate-400">Or</span>}
           {showGoogle && (
-            <Button type="button" variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/home" })}>
+            <Button type="button" variant="outline" className="w-full" onClick={() => signIn("google", { callbackUrl: "/" })}>
               Continue with Google
             </Button>
           )}

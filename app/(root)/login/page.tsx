@@ -39,7 +39,7 @@ const Page = () => {
                 {process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET && (
                     <form action={async () => {
                         "use server";
-                        await signIn("google", { callbackUrl: "/home" });
+                        await signIn("google", { callbackUrl: "/" });
                     }}>
                         <Button type="submit" className="text-dark-3 bg-sky-400 hover:bg-sky-600">Login with Google</Button>
                     </form>
